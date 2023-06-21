@@ -79,6 +79,7 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
+/* POST */
 .post {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -95,6 +96,7 @@ input:checked + .slider:before {
 
 .post-header {
     grid-area: header;
+    margin-top: 10px;
     display: flex;
     align-items: center;
 }
@@ -115,12 +117,8 @@ input:checked + .slider:before {
     padding-left: 20px;
 }
 
-.name {
-    margin: 0;
-}
-
 .username {
-    margin: 0;
+    margin-top: 20px;
     color: #999;
 }
 
@@ -131,6 +129,11 @@ input:checked + .slider:before {
 
 .text {
     margin: 0;
+    padding: 10px 0;
+}
+
+.date {
+    margin-top: 20px;
 }
 
 .post-image {
@@ -149,7 +152,7 @@ input:checked + .slider:before {
 }
 
 .like-button {
-    padding: 5px 10px;
+    padding: 0 20px;
     border: none;
     border-radius: 5px;
     background-color: #3498db;
@@ -162,6 +165,7 @@ input:checked + .slider:before {
     background-color: #2980b9;
 }
 
+/* FETCH BUTTON */
 .fetch-more {
     margin: 10px auto;
     width: 200px;
@@ -177,9 +181,58 @@ input:checked + .slider:before {
     background: #97ffff;
     border: inset 5px #7fa3ff;
     cursor: pointer;
+    color: #7fa3ff;
 }
 
+.disable-fetch{
+    background: gray;
+    border: inset 5px gray;
+    cursor: crosshair;
+    color: white;
+}
 
+.disable-fetch:hover {
+    background: gray;
+    border: inset 5px gray;
+    cursor: not-allowed;
+    color: white;
+}
+
+/* MODAL WINDOW */
+.modal-container {
+    display: none;
+    padding: 20px;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 50px;
+    border: none;
+    background-color: transparent;
+    color: #9b0000;
+    cursor: pointer;
+}
+
+/* RESPONSIVENESS */
 @media (max-width: 1200px) {
     .layout-container {
         width: 60%;
@@ -201,7 +254,20 @@ input:checked + .slider:before {
 @media (max-width: 576px) {
     .layout-container {
         width: 95%;
-        max-width: 100px;
+    }
+
+    .post-image{
+        max-width: 250px;
+    }
+
+    .modal-container{
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+    }
+
+    .modal-container img{
+        max-width: 300px;
     }
 }
 

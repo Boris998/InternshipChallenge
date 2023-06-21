@@ -1,6 +1,9 @@
 const switchMode = document.querySelector('.switch');
 const layoutContainer = document.querySelector('.layout-container');
 const fetchMore = document.querySelector('.fetch-more');
+const likeBtn = document.querySelector('.like-button');
+const likesText = document.querySelector('.likes');
+
 let currIndexOfProfile = 0;
 let allProfilesData = [];
 let isDarkMode = false;
@@ -52,6 +55,11 @@ const createPostElement = (post) => {
     postImg.classList.add('post-image');
     postImg.src = post.image;
     postImg.alt = 'Post image';
+
+    postImg.addEventListener('click', () => {
+        openModal(post.image);
+    });
+
     postContent.appendChild(postImg);
 
     newPost.appendChild(postContent);
@@ -64,15 +72,53 @@ const createPostElement = (post) => {
     likeBtn.textContent = 'Like🤙';
     postFooter.appendChild(likeBtn);
 
-    const likesCount = document.createElement('p');
-    likesCount.classList.add('like-count');
-    likesCount.textContent = post.likes + 'likes';
-    postFooter.appendChild(likesCount);
+    const postLikesCount = document.createElement('p');
+    postLikesCount.classList.add('likes');
+    postLikesCount.textContent = post.likes + ' more like this post';
+    postFooter.appendChild(postLikesCount);
 
     newPost.appendChild(postFooter);
 
     return newPost;
 }
+
+
+const openModal = (imageUrl) => {
+    const modalContainer = document.getElementById('modalContainer');
+
+    modalContainer.innerHTML = '';
+
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('modal-content');
+
+    const modalImage = document.createElement('img');
+    modalImage.src = imageUrl;
+    modalImage.alt = 'Modal image';
+    modalContent.appendChild(modalImage);
+
+    const closeModalBtn = document.createElement('button');
+    closeModalBtn.classList.add('close-modal');
+    closeModalBtn.innerHTML = '&times;';
+    closeModalBtn.addEventListener('click', closeModal);
+
+    modalContent.appendChild(closeModalBtn);
+
+    modalContainer.appendChild(modalContent);
+
+    modalContainer.style.display = 'block';
+}
+
+const closeModal = () => {
+    const modalContainer = document.getElementById('modalContainer');
+    modalContainer.style.display = 'none';
+}
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' ) {
+        closeModal();
+    }
+});
+
 
 const displayPosts = (posts) => {
     posts.forEach(post => {
@@ -86,7 +132,31 @@ const fetchNext4Posts = () => {
     currIndexOfProfile += 4;
 
     displayPosts(fetch4);
+
+    if ((allProfilesData.length - currIndexOfProfile) <= 0) {
+        fetchMore.disabled;
+        fetchMore.classList.add('disable-fetch');
+    }
 }
+
+
+const calcTimeDiff = (now, postDate) => {
+    const timeDiff = now - postDate;
+
+    const msToMin = 60 * 1000;
+    const msToHours = 60 * msToMin;
+    const msToDays = 60 * msToHours;
+    const msToWeeks = 7 * msToDays;
+
+    return timeDiff < msToMin ?
+        Math.floor(timeDiff / msToMin) + 'm'
+        : timeDiff < msToHours ?
+            Math.floor(timeDiff / msToHours) + 'h'
+            : timeDiff < msToDays ?
+                Math.floor(timeDiff / msToDays) + 'd'
+                : Math.floor(timeDiff / msToWeeks) + 'w';
+}
+
 
 const fetchData = async () => {
     try {
@@ -94,14 +164,19 @@ const fetchData = async () => {
 
         const responseData = await response.json();
 
+        const now = new Date();
+
         responseData.forEach(profile => {
+            const postDate = new Date(profile.date.slice(0, 10));
+            const someTimeAgo = calcTimeDiff(now, postDate);
+
             allProfilesData.push({
                 image: profile.image,
                 caption: profile.caption,
                 type: profile.type,
                 source_type: profile.source_type,
                 source_link: profile.source_link,
-                date: profile.date,
+                date: someTimeAgo,
                 likes: profile.likes,
                 name: profile.name,
                 profile_image: profile.profile_image,
@@ -112,29 +187,39 @@ const fetchData = async () => {
     } catch (e) {
         console.log('error');
     }
-
 }
 
 fetchData();
 
 
-const switchModeF = () => {
+const switchModeF = (e) => {
+    e.preventDefault();
+
     if (isDarkMode) {
-        document.body.removeAttribute('style');
+        document.body.style.backgroundColor = 'white';
+        document.body.style.color = 'black';
 
         isDarkMode = false;
     } else {
-        document.body.style.backgroundColor = '#313636';
+        document.body.style.backgroundColor = '#263333';
         document.body.style.color = '#ffffff';
 
         isDarkMode = true;
     }
-};
+}
 
 switchMode.addEventListener('click', switchModeF);
 
+let liked = true;
 
+const likeHandler = (e) => {
+    e.preventDefault();
 
+    liked ? likesText.innerHTML = 'you and ' + likesText.innerHTML
+        : likesText.innerHTML = likesText.innerHTML.replace('you and ', '');
 
+    liked = !liked;
+}
 
+likeBtn.addEventListener('click', likeHandler);
 

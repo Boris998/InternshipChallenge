@@ -1,46 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Frontend challenge</title>
-	<meta name="author" content="">
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<link href="https://embedsocial.com/cdn/fonts/roboto/stylesheet.css" rel="stylesheet">
-	<link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8">
+    <title>Frontend challenge</title>
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://embedsocial.com/cdn/fonts/roboto/stylesheet.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"/>
+
+    <script defer src="index.js"></script>
 </head>
 
 <body>
-	<div class="header-container">
-		<label class="switch">
-			<input type="checkbox">
-			<span class="slider round"></span>
-		</label>
-	</div>
-	<div class="layout-container">
-		<div class="post">
-			<div class="post-header">
-				<img class="profile-pic" src="./assets/img/profile.jpg" alt="profile picture">
-				<div class="user-info">
-					<h4 class="name">Profile Name</h4>
-					<p class="username">@example.com</p>
-					<p class="date">17h</p>
-				</div>
-			</div>
+<div class="header-container">
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+    </label>
+</div>
+<div class="layout-container">
+    <div class="post">
+        <div class="post-header">
+            <img class="profile-pic" src="./assets/img/profile.jpg" alt="profile picture">
+            <div class="user-info">
+                <h4 class="name">Profile Name</h4>
+                <p class="username">@example.com</p>
+                <p class="date">17h</p>
+            </div>
+        </div>
 
-			<div class="post-content">
-				<p class="text">Step into a world of elegance and charm with this beautiful entrance door of a townhouse. The intricate details and warm wooden tones create a welcoming atmosphere that is sure to impress any visitor. Experience the timeless appeal of this architectural masterpiece.</p>
-				<img class="post-image" src="assets/img/free-photo-of-wooden-entrance-door-of-a-townhouse.jpeg" alt="Post image">
-			</div>
+        <div class="post-content">
+            <p class="text">Step into a world of elegance and charm with this beautiful entrance door of a townhouse.
+                The intricate details and warm wooden tones create a welcoming atmosphere that is sure to impress any
+                visitor. Experience the timeless appeal of this architectural masterpiece.</p>
+            <img class="post-image" src="assets/img/free-photo-of-wooden-entrance-door-of-a-townhouse.jpeg"
+                 alt="Post image">
+        </div>
 
-			<div class="post-footer">
-				<button class="like-button">Like🤙</button>
-				<p class="likes">you and 123 more like this post.</p>
-			</div>
-		</div>
-		<button class="fetch-more">more</button>
-	</div>
-	<script src="index.js"></script>
+        <div class="post-footer">
+            <button class="like-button">Like🤙</button>
+            <p class="likes"> 123 more like this post.</p>
+        </div>
+    </div>
+    <button class="fetch-more">more</button>
+
+    <div id="modalContainer" class="modal-container"></div>
+</div>
+
 </body>
 </html>
